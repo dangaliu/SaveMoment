@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "840881245192",
+    "project_id": "savemoment-7f1f9",
+    "storage_bucket": "savemoment-7f1f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840881245192:android:f8b23dec1d087a4e6a55bd",
+        "android_client_info": {
+          "package_name": "com.example.savemoment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840881245192-8sqstgjcp8fr52fni6n0g2k0krr5c1on.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.savemoment",
+            "certificate_hash": "02b9a6064b0687d5e019465898dc1150e56ba604"
+          }
+        },
+        {
+          "client_id": "840881245192-7cel1f9js8bp76tpivafoiv8pknl6g3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhZAV31oO7p5VpbTCUHNVR9-TV5IGiZqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840881245192-7cel1f9js8bp76tpivafoiv8pknl6g3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
