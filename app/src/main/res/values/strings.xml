@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SaveMoment</string>
+    <string name="moment_image">moment image</string>
+    <string name="moment_title">Moment Title</string>
 </resources>
