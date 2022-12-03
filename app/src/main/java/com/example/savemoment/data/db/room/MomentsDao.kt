@@ -8,15 +8,15 @@ import com.example.savemoment.domain.model.Moment
 interface MomentsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveMoment(moment: Moment): Boolean
+    suspend fun saveMoment(moment: Moment)
 
     @Delete
-    suspend fun deleteMoment(moment: Moment): Boolean
+    suspend fun deleteMoment(moment: Moment)
 
     @Query("select * from moments")
     fun getAllMoments(): LiveData<List<Moment>>
 
     @Query("update moments set title = :title, description = :description where id = :id")
-    suspend fun updateMomentById(id: Long, title: String, description: String): Boolean
+    suspend fun updateMomentById(id: Long, title: String, description: String)
 
 }

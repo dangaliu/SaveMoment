@@ -7,12 +7,16 @@ import com.example.savemoment.domain.repository.MomentsRepository
 
 class MomentsRepositoryImpl(private val momentDb: MomentsDatabase) : MomentsRepository {
 
-    override suspend fun saveMoment(moment: Moment): Boolean {
+    override suspend fun saveMoment(moment: Moment) {
         return momentDb.momentsDao().saveMoment(moment)
     }
 
-    override suspend fun updateMoment(id: Long, title: String, description: String): Boolean {
+    override suspend fun updateMoment(id: Long, title: String, description: String) {
         return momentDb.momentsDao().updateMomentById(id, title, description)
+    }
+
+    override suspend fun deleteMoment(moment: Moment) {
+        return momentDb.momentsDao().deleteMoment(moment)
     }
 
 

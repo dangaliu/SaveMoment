@@ -18,9 +18,11 @@ abstract class MomentsDatabase : RoomDatabase() {
         fun getInstance(context: Context): MomentsDatabase {
             if (instance == null) {
                 synchronized(Any()) {
-                    instance =
-                        Room.databaseBuilder(context, MomentsDatabase::class.java, "momentsDb")
-                            .build()
+                    if(instance == null) {
+                        instance =
+                            Room.databaseBuilder(context, MomentsDatabase::class.java, "momentsDb")
+                                .build()
+                    }
                 }
             }
             return instance!!
