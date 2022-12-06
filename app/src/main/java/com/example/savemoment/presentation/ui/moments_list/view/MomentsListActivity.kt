@@ -11,10 +11,13 @@ import com.example.savemoment.databinding.ActivityMomentsListBinding
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.presentation.adapter.MomentAdapter
 import com.example.savemoment.presentation.ui.addMoment.view.AddMomentActivity
+import com.example.savemoment.presentation.ui.moments_list.MomentClickListener
+import com.example.savemoment.presentation.ui.moments_list.MomentMenuListener
 import com.example.savemoment.presentation.ui.moments_list.viewmodel.MomentsViewModel
+import com.example.savemoment.utils.Constants
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MomentsListActivity : AppCompatActivity(), MomentMenuListener {
+class MomentsListActivity : AppCompatActivity(), MomentMenuListener, MomentClickListener {
 
     private lateinit var binding: ActivityMomentsListBinding
     private val viewModel by viewModel<MomentsViewModel>()
@@ -31,7 +34,7 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener {
 
 
     private fun init() {
-        momentsAdapter = MomentAdapter(this, this)
+        momentsAdapter = MomentAdapter(this, this, this)
         binding.rvMoments.adapter = momentsAdapter
     }
 
@@ -68,6 +71,13 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener {
 
     override fun onLongClick(moment: Moment, view: View) {
         showPopupMenu(view, moment)
+    }
+
+    override fun onClick(moment: Moment) {
+        Intent(this, AddMomentActivity::class.java).also {
+            it.putExtra(Constants.MOMENT_KEY, moment)
+            startActivity(it)
+        }
     }
 
 }

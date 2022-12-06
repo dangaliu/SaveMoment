@@ -5,22 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.domain.repository.MomentsRepository
+import com.example.savemoment.domain.usecase.DeleteMomentUseCase
+import com.example.savemoment.domain.usecase.GetMomentsUseCase
 import kotlinx.coroutines.launch
 
-class MomentsViewModel(private val momentsRepository: MomentsRepository) : ViewModel() {
+class MomentsViewModel(
+    private val getMomentsUseCase: GetMomentsUseCase,
+    private val deleteMomentUseCase: DeleteMomentUseCase
+) : ViewModel() {
 
-    private val momentsMutable = momentsRepository.getMoments()
+    private val momentsMutable = getMomentsUseCase.execute()
     val moments: LiveData<List<Moment>> = momentsMutable
 
-    fun save(moment: Moment) {
-        viewModelScope.launch {
-            momentsRepository.saveMoment(moment)
-        }
-    }
 
     fun delete(moment: Moment) {
         viewModelScope.launch {
-            momentsRepository.deleteMoment(moment)
+            deleteMomentUseCase.execute(moment)
         }
     }
 
