@@ -7,6 +7,7 @@ import com.example.savemoment.databinding.ActivityAddMomentBinding
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.presentation.ui.addMoment.viewmodel.AddMomentViewModel
 import com.example.savemoment.utils.Constants
+import com.example.savemoment.utils.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddMomentActivity : AppCompatActivity() {
@@ -36,9 +37,30 @@ class AddMomentActivity : AppCompatActivity() {
         binding.toolbar.setOnMenuItemClickListener {
             return@setOnMenuItemClickListener when (it.itemId) {
                 R.id.done -> {
-                    getOldData()?.let { moment ->
-                        viewModel.update(getNewMoment(moment))
-                        finish()
+                    val title = binding.etTitle.text.toString()
+                    val description = binding.etDescription.text.toString()
+                    if (intent.extras?.containsKey(Constants.MOMENT_KEY) != true) {
+                        if (title.isBlank()) {
+                            showToast("Название не должно быть пустым")
+                        } else {
+                            viewModel.save(
+                                Moment(
+                                    title = title,
+                                    description = description,
+                                    pictureUri = ""
+                                )
+                            )
+                            finish()
+                        }
+                    } else {
+                        getOldData()?.let { moment ->
+                            if (title.isBlank()) {
+                                showToast("Название не должно быть пустым")
+                            } else {
+                                viewModel.update(getNewMoment(moment))
+                                finish()
+                            }
+                        }
                     }
                     true
                 }

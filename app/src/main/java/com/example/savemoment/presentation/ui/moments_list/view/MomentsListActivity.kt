@@ -2,6 +2,7 @@ package com.example.savemoment.presentation.ui.moments_list.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu

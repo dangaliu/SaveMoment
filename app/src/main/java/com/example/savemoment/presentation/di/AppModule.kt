@@ -11,7 +11,6 @@ val appModule = module {
     }
     viewModel {
         AddMomentViewModel(
-            deleteMomentUseCase = get(),
             saveMomentUseCase = get(),
             updateMomentUseCase = get()
         )
