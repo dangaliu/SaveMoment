@@ -47,7 +47,7 @@ class AddMomentActivity : AppCompatActivity() {
                                 Moment(
                                     title = title,
                                     description = description,
-                                    pictureUri = ""
+                                    picture = ""
                                 )
                             )
                             finish()
@@ -79,7 +79,7 @@ class AddMomentActivity : AppCompatActivity() {
             id = moment.id,
             title = binding.etTitle.text.toString(),
             description = binding.etDescription.text.toString(),
-            pictureUri = ""
+            picture = ""
         )
     }
 

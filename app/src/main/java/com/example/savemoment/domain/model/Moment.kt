@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Moment(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
-    val pictureUri: String,
+    val picture: String?,
     val title: String,
     val description: String?
 ): Parcelable

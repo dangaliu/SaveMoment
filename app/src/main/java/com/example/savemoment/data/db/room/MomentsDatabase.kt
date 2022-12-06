@@ -6,7 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.savemoment.domain.model.Moment
 
-@Database(entities = [Moment::class], version = 1, exportSchema = false)
+@Database(entities = [Moment::class], version = 2, exportSchema = false)
+@androidx.room.TypeConverters(TypeConverters::class)
 abstract class MomentsDatabase : RoomDatabase() {
 
     abstract fun momentsDao(): MomentsDao
@@ -18,9 +19,10 @@ abstract class MomentsDatabase : RoomDatabase() {
         fun getInstance(context: Context): MomentsDatabase {
             if (instance == null) {
                 synchronized(Any()) {
-                    if(instance == null) {
+                    if (instance == null) {
                         instance =
                             Room.databaseBuilder(context, MomentsDatabase::class.java, "momentsDb")
+                                .fallbackToDestructiveMigration()
                                 .build()
                     }
                 }

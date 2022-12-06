@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savemoment.R
@@ -55,7 +56,8 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener, MomentClick
     }
 
     private fun showPopupMenu(view: View, moment: Moment) {
-        val popupMenu = PopupMenu(this, view)
+        val wrapper = ContextThemeWrapper(this, R.style.MyPopUp)
+        val popupMenu = PopupMenu(wrapper, view)
         popupMenu.inflate(R.menu.moments_menu)
 
         popupMenu.setOnMenuItemClickListener {
