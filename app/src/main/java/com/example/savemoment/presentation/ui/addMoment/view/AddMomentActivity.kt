@@ -1,7 +1,12 @@
 package com.example.savemoment.presentation.ui.addMoment.view
 
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
+import com.bumptech.glide.Glide
 import com.example.savemoment.R
 import com.example.savemoment.databinding.ActivityAddMomentBinding
 import com.example.savemoment.domain.model.Moment
@@ -14,6 +19,13 @@ class AddMomentActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddMomentBinding
     private val viewModel by viewModel<AddMomentViewModel>()
+    private val selectImageFromGallery = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let {
+            binding.ivAddImage.setImageURI(it)
+            imageUri = it
+        }
+    }
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +45,9 @@ class AddMomentActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
+        binding.ivAddImage.setOnClickListener {
+            selectImageFromGallery.launch("image/*")
+        }
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.toolbar.setOnMenuItemClickListener {
             return@setOnMenuItemClickListener when (it.itemId) {
@@ -47,7 +62,7 @@ class AddMomentActivity : AppCompatActivity() {
                                 Moment(
                                     title = title,
                                     description = description,
-                                    picture = ""
+                                    picture = imageUri.toString()
                                 )
                             )
                             finish()
@@ -72,6 +87,7 @@ class AddMomentActivity : AppCompatActivity() {
     private fun setOldData(moment: Moment) {
         binding.etTitle.setText(moment.title)
         binding.etDescription.setText(moment.description)
+        Glide.with(binding.ivAddImage).load(moment.picture).into(binding.ivAddImage)
     }
 
     private fun getNewMoment(moment: Moment): Moment {
@@ -79,7 +95,7 @@ class AddMomentActivity : AppCompatActivity() {
             id = moment.id,
             title = binding.etTitle.text.toString(),
             description = binding.etDescription.text.toString(),
-            picture = ""
+            picture = imageUri.toString()
         )
     }
 

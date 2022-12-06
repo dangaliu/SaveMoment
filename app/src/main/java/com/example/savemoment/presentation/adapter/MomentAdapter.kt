@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.savemoment.databinding.ItemMomentBinding
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.presentation.ui.moments_list.MomentClickListener
@@ -29,9 +30,11 @@ class MomentAdapter(
     override fun onBindViewHolder(holder: MomentHolder, position: Int) {
         val moment = moments[position]
         with(holder.binding) {
-            ivMoment.setImageURI("".toUri())
             tvMomentTitle.text = moment.title
             tvMomentDescription.text = moment.description
+            moment.picture?.let {
+                Glide.with(ivMoment).load(it).into(ivMoment)
+            }
             rootMomentView.setOnClickListener {
                 onClickListener.onClick(moment)
             }
