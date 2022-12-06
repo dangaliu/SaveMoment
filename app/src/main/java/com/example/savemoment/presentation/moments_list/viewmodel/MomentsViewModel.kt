@@ -1,7 +1,6 @@
 package com.example.savemoment.presentation.moments_list.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.savemoment.domain.model.Moment
@@ -16,6 +15,12 @@ class MomentsViewModel(private val momentsRepository: MomentsRepository) : ViewM
     fun save(moment: Moment) {
         viewModelScope.launch {
             momentsRepository.saveMoment(moment)
+        }
+    }
+
+    fun delete(moment: Moment) {
+        viewModelScope.launch {
+            momentsRepository.deleteMoment(moment)
         }
     }
 

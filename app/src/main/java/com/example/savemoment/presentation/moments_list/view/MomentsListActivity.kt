@@ -1,15 +1,18 @@
 package com.example.savemoment.presentation.moments_list.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.savemoment.R
 import com.example.savemoment.databinding.ActivityMomentsListBinding
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.presentation.adapter.MomentAdapter
 import com.example.savemoment.presentation.moments_list.viewmodel.MomentsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MomentsListActivity : AppCompatActivity() {
+class MomentsListActivity : AppCompatActivity(), MomentMenuListener {
 
     private lateinit var binding: ActivityMomentsListBinding
     private val viewModel by viewModel<MomentsViewModel>()
@@ -24,8 +27,9 @@ class MomentsListActivity : AppCompatActivity() {
         setListeners()
     }
 
+
     private fun init() {
-        momentsAdapter = MomentAdapter(this)
+        momentsAdapter = MomentAdapter(this, this)
         binding.rvMoments.adapter = momentsAdapter
     }
 
@@ -49,4 +53,26 @@ class MomentsListActivity : AppCompatActivity() {
             )
         }
     }
+
+    private fun showPopupMenu(view: View, moment: Moment) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.inflate(R.menu.moments_menu)
+
+        popupMenu.setOnMenuItemClickListener {
+            return@setOnMenuItemClickListener when (it.itemId) {
+                R.id.deleteMoment -> {
+                    viewModel.delete(moment)
+                    true
+                }
+                else -> false
+            }
+        }
+
+        popupMenu.show()
+    }
+
+    override fun onLongClick(moment: Moment, view: View) {
+        showPopupMenu(view, moment)
+    }
+
 }

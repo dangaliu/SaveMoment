@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.example.savemoment.R
 import com.example.savemoment.databinding.ItemMomentBinding
 import com.example.savemoment.domain.model.Moment
+import com.example.savemoment.presentation.moments_list.view.MomentMenuListener
 
-class MomentAdapter(private val context: Context) :
+class MomentAdapter(private val context: Context, private val menuListener: MomentMenuListener) :
     RecyclerView.Adapter<MomentAdapter.MomentHolder>() {
 
     private var moments = listOf<Moment>()
@@ -27,6 +27,10 @@ class MomentAdapter(private val context: Context) :
             ivMoment.setImageURI("".toUri())
             tvMomentTitle.text = moment.title
             tvMomentDescription.text = moment.description
+            rootMomentView.setOnLongClickListener {
+                menuListener.onLongClick(moment, rootMomentView)
+                true
+            }
         }
     }
 
