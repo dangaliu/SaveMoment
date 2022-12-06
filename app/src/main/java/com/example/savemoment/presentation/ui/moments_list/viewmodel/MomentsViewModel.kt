@@ -1,4 +1,4 @@
-package com.example.savemoment.presentation.moments_list.viewmodel
+package com.example.savemoment.presentation.ui.moments_list.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

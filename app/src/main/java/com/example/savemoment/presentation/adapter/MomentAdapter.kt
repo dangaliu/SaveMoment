@@ -7,7 +7,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.savemoment.databinding.ItemMomentBinding
 import com.example.savemoment.domain.model.Moment
-import com.example.savemoment.presentation.moments_list.view.MomentMenuListener
+import com.example.savemoment.presentation.ui.moments_list.view.MomentMenuListener
 
 class MomentAdapter(private val context: Context, private val menuListener: MomentMenuListener) :
     RecyclerView.Adapter<MomentAdapter.MomentHolder>() {

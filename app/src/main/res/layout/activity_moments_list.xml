@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="8dp"
     android:paddingTop="8dp"
-    tools:context=".presentation.moments_list.view.MomentsListActivity">
+    tools:context=".presentation.ui.moments_list.view.MomentsListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMoments"

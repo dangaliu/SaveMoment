@@ -1,4 +1,4 @@
-package com.example.savemoment.presentation.moments_list.view
+package com.example.savemoment.presentation.ui.moments_list.view
 
 import android.view.View
 import com.example.savemoment.domain.model.Moment

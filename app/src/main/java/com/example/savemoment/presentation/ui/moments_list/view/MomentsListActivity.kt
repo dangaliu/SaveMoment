@@ -1,5 +1,6 @@
-package com.example.savemoment.presentation.moments_list.view
+package com.example.savemoment.presentation.ui.moments_list.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +10,8 @@ import com.example.savemoment.R
 import com.example.savemoment.databinding.ActivityMomentsListBinding
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.presentation.adapter.MomentAdapter
-import com.example.savemoment.presentation.moments_list.viewmodel.MomentsViewModel
+import com.example.savemoment.presentation.ui.addMoment.view.AddMomentActivity
+import com.example.savemoment.presentation.ui.moments_list.viewmodel.MomentsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MomentsListActivity : AppCompatActivity(), MomentMenuListener {
@@ -44,13 +46,7 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener {
 
     private fun setListeners() {
         binding.btnAdd.setOnClickListener {
-            viewModel.save(
-                Moment(
-                    pictureUri = "",
-                    title = "Test Title",
-                    description = "Test Description"
-                )
-            )
+            startActivity(Intent(this, AddMomentActivity::class.java))
         }
     }
 
@@ -67,7 +63,6 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener {
                 else -> false
             }
         }
-
         popupMenu.show()
     }
 

@@ -14,7 +14,14 @@
         android:theme="@style/Theme.SaveMoment"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.moments_list.view.MomentsListActivity"
+            android:name=".presentation.ui.addMoment.view.AddMomentActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".presentation.ui.moments_list.view.MomentsListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
