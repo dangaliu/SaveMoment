@@ -26,10 +26,12 @@ class AddMomentActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddMomentBinding
     private val viewModel by viewModel<AddMomentViewModel>()
+    private var isNewImage = false
     private val selectImageFromGallery =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 binding.ivAddImage.setImageURI(it)
+                isNewImage = true
             }
         }
 
@@ -88,7 +90,10 @@ class AddMomentActivity : AppCompatActivity() {
                                 Moment(
                                     title = title,
                                     description = description,
-                                    picture = writeImageToInternalStorage().toString()
+                                    picture = if (isNewImage) {
+                                        isNewImage = false
+                                        writeImageToInternalStorage().toString()
+                                    } else "null"
                                 )
                             )
                             finish()
@@ -124,7 +129,10 @@ class AddMomentActivity : AppCompatActivity() {
             id = moment.id,
             title = binding.etTitle.text.toString(),
             description = binding.etDescription.text.toString(),
-            picture = writeImageToInternalStorage().toString()
+            picture = if (isNewImage) {
+                isNewImage = false
+                writeImageToInternalStorage().toString()
+            } else moment.picture
         )
     }
 
