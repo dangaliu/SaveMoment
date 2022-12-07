@@ -11,8 +11,8 @@ class MomentsRepositoryImpl(private val momentDb: MomentsDatabase) : MomentsRepo
         return momentDb.momentsDao().saveMoment(moment)
     }
 
-    override suspend fun updateMoment(id: Long, title: String, description: String) {
-        return momentDb.momentsDao().updateMomentById(id, title, description)
+    override suspend fun updateMoment(id: Long, title: String, description: String, picture: String) {
+        return momentDb.momentsDao().updateMomentById(id, title, description, picture)
     }
 
     override suspend fun deleteMoment(moment: Moment) {

@@ -7,7 +7,7 @@ interface MomentsRepository {
 
     suspend fun saveMoment(moment: Moment)
 
-    suspend fun updateMoment(id: Long, title: String, description: String)
+    suspend fun updateMoment(id: Long, title: String, description: String, picture: String)
 
     suspend fun deleteMoment(moment: Moment)
 

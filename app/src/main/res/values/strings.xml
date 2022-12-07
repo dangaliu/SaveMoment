@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SaveMoment</string>
     <string name="moment_image">moment image</string>
-    <string name="moment_title">Moment Title</string>
+    <string name="moment_title">Momentik Title</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
 </resources>

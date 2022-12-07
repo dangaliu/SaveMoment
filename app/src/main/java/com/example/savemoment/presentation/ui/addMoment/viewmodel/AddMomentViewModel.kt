@@ -20,7 +20,7 @@ class AddMomentViewModel(
 
     fun update(moment: Moment) {
         viewModelScope.launch {
-            updateMomentUseCase.execute(moment.id!!, moment.title, moment.description ?: "")
+            updateMomentUseCase.execute(moment.id!!, moment.title, moment.description ?: "", moment.picture.toString())
         }
     }
 }
