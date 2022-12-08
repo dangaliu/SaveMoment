@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
@@ -38,6 +41,11 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener, MomentClick
     private fun init() {
         momentsAdapter = MomentAdapter(this, this, this)
         binding.rvMoments.adapter = momentsAdapter
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitAlertDialog()
+            }
+        })
     }
 
     private fun setObservers() {
@@ -70,6 +78,20 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener, MomentClick
             }
         }
         popupMenu.show()
+    }
+
+
+    private fun showExitAlertDialog() {
+        val dialog = AlertDialog.Builder(this, R.style.AppAlertDialog)
+            .setTitle("Вы точно хотите выйти?")
+            .setNegativeButton("Нет") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Да") { dialog, which ->
+                finish()
+            }
+            .create()
+        dialog.show()
     }
 
     override fun onLongClick(moment: Moment, view: View) {

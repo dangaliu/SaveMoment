@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Customize your theme here. -->
-        <item name="materialButtonOutlinedStyle">@style/AppOutlinedButton</item>
+        <item name="materialButtonStyle">@style/AppOutlinedButton</item>
     </style>
 
     <style name="MyPopUp" parent="ThemeOverlay.Material3.Light">
@@ -21,4 +21,9 @@
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="AppAlertDialog" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/black</item>
+    </style>
+
 </resources>
