@@ -2,6 +2,13 @@
     <string name="app_name">SaveMoment</string>
     <string name="moment_image">moment image</string>
     <string name="moment_title">Momentik Title</string>
-    <string name="title">Title</string>
-    <string name="description">Description</string>
+    <string name="title">Название</string>
+    <string name="description">Описание</string>
+    <string name="add_moment_toolbar">Добавить</string>
+    <string name="update_moment_toolbar">Обновить</string>
+    <string name="done">Done</string>
+    <string name="add_image_from">Add Image From</string>
+    <string name="from_gallery">Из Галереи</string>
+    <string name="from_camera">Из Камеры</string>
+    <string name="authorities">com.example.savemoment.provider</string>
 </resources>

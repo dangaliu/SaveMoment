@@ -1,4 +1,5 @@
 package com.example.savemoment.presentation.ui.addMoment.viewmodel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.savemoment.domain.model.Moment
@@ -20,7 +21,13 @@ class AddMomentViewModel(
 
     fun update(moment: Moment) {
         viewModelScope.launch {
-            updateMomentUseCase.execute(moment.id!!, moment.title, moment.description ?: "", moment.picture.toString())
+            updateMomentUseCase.execute(
+                moment.id!!,
+                moment.title,
+                moment.description ?: "",
+                moment.picture.toString()
+            )
         }
     }
+
 }

@@ -1,61 +1,56 @@
 package com.example.savemoment.presentation.ui.addMoment.view
 
-import android.content.Context
-import android.content.ContextWrapper
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
+import android.Manifest
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
-import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.example.savemoment.R
 import com.example.savemoment.databinding.ActivityAddMomentBinding
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.presentation.ui.addMoment.viewmodel.AddMomentViewModel
 import com.example.savemoment.utils.Constants
+import com.example.savemoment.utils.initTempUri
 import com.example.savemoment.utils.showToast
+import com.example.savemoment.utils.writeImageToInternalStorage
+import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
-import java.io.FileOutputStream
-import java.util.UUID
 
 class AddMomentActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddMomentBinding
     private val viewModel by viewModel<AddMomentViewModel>()
     private var isNewImage = false
-    private val selectImageFromGallery =
+    private val selectImageFromGalleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
-                binding.ivAddImage.setImageURI(it)
+                Glide.with(this).load(uri).into(binding.ivAddImage)
                 isNewImage = true
             }
         }
 
-    private fun writeImageToInternalStorage(): Uri {
-        val bitmap = (binding.ivAddImage.drawable as BitmapDrawable).bitmap
-        val cw = ContextWrapper(applicationContext)
-        val directory = cw.getDir("images", Context.MODE_PRIVATE)
-        val myPath = File(
-            directory,
-            if (getOldData() != null) "moment_${UUID.randomUUID()}" else "moment_${UUID.randomUUID()}"
-        )
-        var fos: FileOutputStream? = null
-        try {
-            fos = FileOutputStream(myPath)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-        } catch (e: Exception) {
-            showToast(e.message.toString())
-        } finally {
-            fos?.close()
-        }
-        return myPath.toUri()
-    }
+    private var cameraPermissionGranted = true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private var latestTmpUri: Uri? = null
+
+    private val registerTakePictureLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+            if (isSuccess) {
+                latestTmpUri?.let { uri ->
+                    Glide.with(this).load(uri).into(binding.ivAddImage)
+                    isNewImage = true
+                }
+            }
+        }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            cameraPermissionGranted = isGranted
+        }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) = runBlocking {
         super.onCreate(savedInstanceState)
         binding = ActivityAddMomentBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -67,15 +62,16 @@ class AddMomentActivity : AppCompatActivity() {
         intent.extras?.let {
             val moment: Moment? = it.getParcelable(Constants.MOMENT_KEY)
             if (it.containsKey(Constants.MOMENT_KEY) && moment != null) {
+                binding.toolbar.title = resources.getString(R.string.update_moment_toolbar)
                 setOldData(moment)
             }
+            return
         }
+        binding.toolbar.title = resources.getString(R.string.add_moment_toolbar)
+        requestPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
     private fun setListeners() {
-        binding.ivAddImage.setOnClickListener {
-            selectImageFromGallery.launch("image/*")
-        }
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.toolbar.setOnMenuItemClickListener {
             return@setOnMenuItemClickListener when (it.itemId) {
@@ -92,7 +88,7 @@ class AddMomentActivity : AppCompatActivity() {
                                     description = description,
                                     picture = if (isNewImage) {
                                         isNewImage = false
-                                        writeImageToInternalStorage().toString()
+                                        writeImageToInternalStorage(this, binding.ivAddImage)
                                     } else "null"
                                 )
                             )
@@ -110,11 +106,28 @@ class AddMomentActivity : AppCompatActivity() {
                     }
                     true
                 }
+
+                R.id.fromGallery -> {
+                    selectImageFromGalleryLauncher.launch("image/*")
+                    true
+                }
+                R.id.fromCamera -> {
+                    if (cameraPermissionGranted) {
+                        takeImage()
+                    }
+                    true
+                }
                 else -> false
             }
         }
     }
 
+    private fun takeImage() {
+        initTempUri(this).let {
+            latestTmpUri = it
+            registerTakePictureLauncher.launch(it)
+        }
+    }
 
     private fun setOldData(moment: Moment) {
         binding.etTitle.setText(moment.title)
@@ -131,7 +144,7 @@ class AddMomentActivity : AppCompatActivity() {
             description = binding.etDescription.text.toString(),
             picture = if (isNewImage) {
                 isNewImage = false
-                writeImageToInternalStorage().toString()
+                writeImageToInternalStorage(this, binding.ivAddImage)
             } else moment.picture
         )
     }

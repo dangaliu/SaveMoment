@@ -32,8 +32,8 @@ class MomentAdapter(
         with(holder.binding) {
             tvMomentTitle.text = moment.title
             tvMomentDescription.text = moment.description
-            moment.picture?.let {
-                Glide.with(ivMoment).load(it).into(ivMoment)
+            if (moment.picture != "null") {
+                Glide.with(ivMoment).load(moment.picture).into(ivMoment)
             }
             rootMomentView.setOnClickListener {
                 onClickListener.onClick(moment)

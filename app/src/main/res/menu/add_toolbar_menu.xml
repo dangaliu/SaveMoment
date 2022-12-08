@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/addFrom"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="@string/add_image_from"
+        app:showAsAction="always">
+
+        <menu>
+
+            <item
+                android:id="@+id/fromGallery"
+                android:title="@string/from_gallery" />
+
+            <item
+                android:id="@+id/fromCamera"
+                android:title="@string/from_camera" />
+        </menu>
+    </item>
+
+
     <item
         android:id="@+id/done"
         android:icon="@drawable/ic_baseline_check_24"
-        android:title="Done"
-        app:showAsAction="always" />
+        android:title="@string/done"
+        app:showAsAction="ifRoom" />
+
 </menu>
