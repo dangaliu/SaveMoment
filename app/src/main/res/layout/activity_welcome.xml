@@ -12,10 +12,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Save Moment"
+        android:fontFamily="@font/roboto_medium"
+        android:layout_gravity="center"
         android:textColor="@color/black"
-        android:textSize="36sp" />
+        style="@style/MaterialAlertDialog.Material3.Title.Text"
+        android:text="@string/save_moment" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSaveInCloud"
@@ -23,14 +24,14 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Сохранять в облаке" />
+        android:text="@string/save_in_cloud" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSaveInLocal"
         style="@style/AppOutlinedButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Сохранять локально" />
+        android:text="@string/save_locally" />
 
 
 </LinearLayout>

@@ -1,26 +1,33 @@
 package com.example.savemoment.data.repository
 
 import androidx.lifecycle.LiveData
-import com.example.savemoment.data.db.room.MomentsDatabase
+import com.example.savemoment.data.storage.MomentStorage
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.domain.repository.MomentsRepository
 
-class MomentsRepositoryImpl(private val momentDb: MomentsDatabase) : MomentsRepository {
+class MomentsRepositoryImpl(
+    private val momentStorage: MomentStorage
+) : MomentsRepository {
 
     override suspend fun saveMoment(moment: Moment) {
-        return momentDb.momentsDao().saveMoment(moment)
+        momentStorage.save(moment)
     }
 
-    override suspend fun updateMoment(id: Long, title: String, description: String, picture: String) {
-        return momentDb.momentsDao().updateMomentById(id, title, description, picture)
+    override suspend fun updateMoment(
+        id: Long,
+        title: String,
+        description: String,
+        picture: String
+    ) {
+        momentStorage.updateMoment(id, title, description, picture)
     }
 
     override suspend fun deleteMoment(moment: Moment) {
-        return momentDb.momentsDao().deleteMoment(moment)
+        momentStorage.deleteMoment(moment)
     }
 
 
     override fun getMoments(): LiveData<List<Moment>> {
-        return momentDb.momentsDao().getAllMoments()
+        return momentStorage.getMoments()
     }
 }

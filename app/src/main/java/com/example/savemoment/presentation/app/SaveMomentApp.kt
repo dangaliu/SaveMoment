@@ -11,13 +11,4 @@ import org.koin.core.logger.Level
 
 class SaveMomentApp : Application() {
 
-    override fun onCreate() {
-        super.onCreate()
-
-        startKoin {
-            androidLogger(Level.DEBUG)
-            androidContext(this@SaveMomentApp)
-            modules(appModule, dataModule, domainModule)
-        }
-    }
 }

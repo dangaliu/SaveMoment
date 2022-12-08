@@ -17,9 +17,15 @@
         android:theme="@style/Theme.SaveMoment"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.signup.view.SignUpActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".presentation.ui.welcome.view.WelcomeActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +46,6 @@
         <activity
             android:name=".presentation.ui.moments_list.view.MomentsListActivity"
             android:exported="false">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

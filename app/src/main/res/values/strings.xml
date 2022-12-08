@@ -11,4 +11,12 @@
     <string name="from_gallery">Из Галереи</string>
     <string name="from_camera">Из Камеры</string>
     <string name="authorities">com.example.savemoment.provider</string>
+    <string name="save_moment">Save Moment</string>
+    <string name="save_in_cloud">Сохранять в облаке</string>
+    <string name="save_locally">Сохранять локально</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="email">Электронная почта</string>
+    <string name="password">Пароль</string>
+    <string name="repeat_password">Повторите Пароль</string>
+    <string name="have_account">Уже есть аккаунт</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.savemoment.data.db.room
+package com.example.savemoment.data.storage.db.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

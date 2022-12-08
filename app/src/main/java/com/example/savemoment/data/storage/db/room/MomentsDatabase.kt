@@ -1,9 +1,10 @@
-package com.example.savemoment.data.db.room
+package com.example.savemoment.data.storage.db.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.savemoment.data.storage.MomentStorage
 import com.example.savemoment.domain.model.Moment
 
 @Database(entities = [Moment::class], version = 3, exportSchema = false)
