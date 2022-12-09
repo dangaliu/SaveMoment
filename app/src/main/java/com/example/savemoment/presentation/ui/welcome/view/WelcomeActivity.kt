@@ -7,6 +7,7 @@ import com.example.savemoment.databinding.ActivityWelcomeBinding
 import com.example.savemoment.presentation.di.*
 import com.example.savemoment.presentation.ui.moments_list.view.MomentsListActivity
 import com.example.savemoment.presentation.ui.signup.view.SignUpActivity
+import com.example.savemoment.utils.showToast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.koin.androidContext
@@ -32,13 +33,14 @@ class WelcomeActivity : AppCompatActivity() {
             finish()
         }
         binding.btnSaveInCloud.setOnClickListener {
-            if (Firebase.auth.currentUser != null) {
-                startActivity(Intent(this, MomentsListActivity::class.java))
-            } else {
-                startActivity(Intent(this, SignUpActivity::class.java))
-            }
-            startKoinWithDatasource(isLocal = false)
-            finish()
+//            if (Firebase.auth.currentUser != null) {
+//                startActivity(Intent(this, MomentsListActivity::class.java))
+//            } else {
+//                startActivity(Intent(this, SignUpActivity::class.java))
+//            }
+//            startKoinWithDatasource(isLocal = false)
+//            finish()
+            showToast("Данная функция пока недоступна")
         }
     }
 

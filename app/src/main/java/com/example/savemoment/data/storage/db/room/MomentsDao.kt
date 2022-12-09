@@ -17,6 +17,6 @@ interface MomentsDao {
     fun getAllMoments(): LiveData<List<Moment>>
 
     @Query("update moments set title = :title, description = :description, picture = :picture where id = :id")
-    suspend fun updateMomentById(id: Long, title: String, description: String, picture: String)
+    suspend fun updateMomentById(id: Long, title: String, description: String?, picture: String?)
 
 }

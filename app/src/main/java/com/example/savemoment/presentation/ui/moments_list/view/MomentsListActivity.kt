@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savemoment.R
 import com.example.savemoment.databinding.ActivityMomentsListBinding
@@ -20,6 +21,8 @@ import com.example.savemoment.presentation.ui.moments_list.MomentClickListener
 import com.example.savemoment.presentation.ui.moments_list.MomentMenuListener
 import com.example.savemoment.presentation.ui.moments_list.viewmodel.MomentsViewModel
 import com.example.savemoment.utils.Constants
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MomentsListActivity : AppCompatActivity(), MomentMenuListener, MomentClickListener {
@@ -27,6 +30,7 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener, MomentClick
     private lateinit var binding: ActivityMomentsListBinding
     private val viewModel by viewModel<MomentsViewModel>()
     private lateinit var momentsAdapter: MomentAdapter
+    private val momentsCollection = Firebase.firestore.collection("moments")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +53,25 @@ class MomentsListActivity : AppCompatActivity(), MomentMenuListener, MomentClick
     }
 
     private fun setObservers() {
-        viewModel.moments.observe(this) {
-            binding.rvMoments.apply {
-                layoutManager = LinearLayoutManager(this@MomentsListActivity)
-                momentsAdapter.updateMoments(it)
+        try {
+            viewModel.moments.observe(this) {
+                binding.rvMoments.apply {
+                    layoutManager = LinearLayoutManager(this@MomentsListActivity)
+                    momentsAdapter.updateMoments(it)
+                }
+            }
+        } catch (e: Exception) {
+            val list = mutableListOf<Moment>()
+            momentsCollection.addSnapshotListener { value, error ->
+                value?.let { snapshot ->
+                    for (momentDoc in value.documents) {
+                        momentDoc.toObject(Moment::class.java)?.let { list.add(it) }
+                    }
+                    binding.rvMoments.apply {
+                        layoutManager = LinearLayoutManager(this@MomentsListActivity)
+                        momentsAdapter.updateMoments(list)
+                    }
+                }
             }
         }
     }

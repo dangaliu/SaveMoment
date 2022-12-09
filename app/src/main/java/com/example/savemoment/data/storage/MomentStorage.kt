@@ -7,7 +7,7 @@ interface MomentStorage {
 
     suspend fun save(moment: Moment)
 
-    suspend fun updateMoment(id: Long, title: String, description: String, picture: String)
+    suspend fun updateMoment(moment: Moment)
 
     suspend fun deleteMoment(moment: Moment)
 

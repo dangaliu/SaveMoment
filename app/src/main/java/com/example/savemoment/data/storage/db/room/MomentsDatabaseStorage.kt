@@ -10,12 +10,9 @@ class MomentsDatabaseStorage(private val momentsDb: MomentsDatabase) : MomentSto
     }
 
     override suspend fun updateMoment(
-        id: Long,
-        title: String,
-        description: String,
-        picture: String
+        moment: Moment
     ) {
-        momentsDb.momentsDao().updateMomentById(id, title, description, picture)
+        momentsDb.momentsDao().updateMomentById(moment.id!!, moment.title!!, moment.description, moment.picture)
     }
 
     override suspend fun deleteMoment(moment: Moment) {

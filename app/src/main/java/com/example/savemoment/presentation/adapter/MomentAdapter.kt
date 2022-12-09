@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.savemoment.databinding.ItemMomentBinding
 import com.example.savemoment.domain.model.Moment
 import com.example.savemoment.presentation.ui.moments_list.MomentClickListener
@@ -32,9 +33,7 @@ class MomentAdapter(
         with(holder.binding) {
             tvMomentTitle.text = moment.title
             tvMomentDescription.text = moment.description
-            if (moment.picture != "null") {
-                Glide.with(ivMoment).load(moment.picture).into(ivMoment)
-            }
+            Glide.with(ivMoment).load(moment.picture).into(ivMoment)
             rootMomentView.setOnClickListener {
                 onClickListener.onClick(moment)
             }

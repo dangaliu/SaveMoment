@@ -14,12 +14,9 @@ class MomentsRepositoryImpl(
     }
 
     override suspend fun updateMoment(
-        id: Long,
-        title: String,
-        description: String,
-        picture: String
+        moment: Moment
     ) {
-        momentStorage.updateMoment(id, title, description, picture)
+        momentStorage.updateMoment(moment)
     }
 
     override suspend fun deleteMoment(moment: Moment) {
