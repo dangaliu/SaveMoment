@@ -43,18 +43,15 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun startKoinWithDatasource(isLocal: Boolean) {
-        if (isLocal) {
-            startKoin {
-                androidLogger(Level.DEBUG)
-                androidContext(this@WelcomeActivity)
-                modules(appModule, dataModule, domainModule, localDataSourceModule)
-            }
-        } else {
-            startKoin {
-                androidLogger(Level.DEBUG)
-                androidContext(this@WelcomeActivity)
-                modules(appModule, dataModule, domainModule, remoteDataSourceModule)
-            }
+        startKoin {
+            androidLogger(Level.DEBUG)
+            androidContext(this@WelcomeActivity)
+            modules(
+                appModule,
+                dataModule,
+                domainModule,
+                if (isLocal) localDataSourceModule else remoteDataSourceModule
+            )
         }
     }
 }

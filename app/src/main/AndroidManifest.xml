@@ -17,6 +17,13 @@
         android:theme="@style/Theme.SaveMoment"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.signin.view.SignInActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".presentation.ui.signup.view.SignUpActivity"
             android:exported="false">
             <meta-data

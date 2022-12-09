@@ -7,6 +7,7 @@ import android.util.Patterns
 import androidx.lifecycle.lifecycleScope
 import com.example.savemoment.databinding.ActivitySignUpBinding
 import com.example.savemoment.presentation.ui.moments_list.view.MomentsListActivity
+import com.example.savemoment.presentation.ui.signin.view.SignInActivity
 import com.example.savemoment.utils.showToast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -30,6 +31,10 @@ class SignUpActivity : AppCompatActivity() {
     private fun setListeners() {
         binding.btnSignUp.setOnClickListener {
             signUp()
+        }
+        binding.tvHasAccount.setOnClickListener {
+            startActivity(Intent(this, SignInActivity::class.java))
+            finish()
         }
     }
 
@@ -59,6 +64,7 @@ class SignUpActivity : AppCompatActivity() {
                                     MomentsListActivity::class.java
                                 )
                             )
+                            finish()
                         }
                     }
                 } catch (e: Exception) {

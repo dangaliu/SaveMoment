@@ -19,4 +19,6 @@
     <string name="password">Пароль</string>
     <string name="repeat_password">Повторите Пароль</string>
     <string name="have_account">Уже есть аккаунт</string>
+    <string name="sign_in">Авторизация</string>
+    <string name="no_account">У меня нет аккаунта</string>
 </resources>
